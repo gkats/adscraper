@@ -1,0 +1,1 @@
+export GOPATH=$(dirname "${PWD/\/src\/*//src}")

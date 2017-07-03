@@ -1,0 +1,10 @@
+CREATE TABLE keywords (
+  id SERIAL PRIMARY KEY,
+  value VARCHAR NOT NULL,
+  times_scraped INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  last_scraped_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE UNIQUE INDEX keywords_value_index ON keywords (value);

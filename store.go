@@ -5,10 +5,25 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type Store struct {
+type Store interface {
+	Close() error
+	QueryRow(string, ...interface{}) *sql.Row
+	Query(string, ...interface{}) (*sql.Rows, error)
+	Begin() (*sql.Tx, error)
+}
+
+type store struct {
 	*sql.DB
 }
 
-func NewStore(url string) (*Store, error) {
-	return nil, nil
+func NewStore(url string) (Store, error) {
+	db, err := sql.Open("postgres", "postgres://"+url+"?sslmode=require")
+	if err != nil {
+		return nil, err
+	}
+	if err = db.Ping(); err != nil {
+		db.Close()
+		return nil, err
+	}
+	return &store{DB: db}, nil
 }

@@ -1,9 +1,5 @@
-#GOPATH := $(dirname "${PWD/\/src\/*//src}")
-GOPATH := /home/gkats/dev/adscripted
-export GOPATH
-
-PACKAGE = github.com/gkats/scraper
-BINARIES = scraper server
+PACKAGE=github.com/gkats/scraper
+BINARIES=scraper server
 
 BUILD = `git rev-parse HEAD`
 BUILD_DIR = ${GOPATH}/src/${PACKAGE}
@@ -32,6 +28,5 @@ vet:
 	cd ${BUILD_DIR}; \
 	go vet ./... ; \
 	cd - >/dev/null
-
 
 .PHONY: clean fmt vet install
