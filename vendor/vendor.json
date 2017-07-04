@@ -57,5 +57,9 @@
 			"revisionTime": "2017-07-01T00:59:03Z"
 		}
 	],
-	"rootPath": "github.com/gkats/scraper"
+	"rootPath": "github.com/gkats/scraper",
+	"heroku": {
+		"install": ["./cmd/..."],
+		"goVersion": "go1.8"
+	}
 }
