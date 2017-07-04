@@ -4,10 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/gkats/httplog"
 	"github.com/gkats/scraper/keywords"
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 )
@@ -156,11 +158,13 @@ func (k *keywordJson) ToKeyword() *keywords.Keyword {
 }
 
 type server struct {
-	store Store
+	store  Store
+	logger httplog.Logger
 }
 
 func NewServer(store Store) *server {
-	return &server{store}
+	logger := httplog.New(os.Stdout)
+	return &server{store: store, logger: logger}
 }
 
 func (s *server) Listen(port int) {
@@ -170,7 +174,7 @@ func (s *server) Listen(port int) {
 	r.Handle("/keywords/{id}", update(s.store)).Methods("PATCH", "PUT")
 	r.HandleFunc("/", root())
 	http.Handle("/", r)
-	http.ListenAndServe(":"+strconv.Itoa(port), jsonContent(r))
+	http.ListenAndServe(":"+strconv.Itoa(port), httplog.WithLogging(jsonContent(r), s.logger))
 }
 
 type createHandler struct {
@@ -305,6 +309,9 @@ func root() http.HandlerFunc {
 func jsonContent(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("X-Content-Type-Options", "nosniff")
+		w.Header().Set("X-Frame-Options", "DENY")
+		w.Header().Set("X-XSS-Protection", "1; mode=block")
 		h.ServeHTTP(w, r)
 	})
 }
