@@ -1,5 +1,11 @@
 {
 	"comment": "",
+	"heroku": {
+		"goVersion": "go1.8",
+		"install": [
+			"./cmd/..."
+		]
+	},
 	"ignore": "test",
 	"package": [
 		{
@@ -15,10 +21,10 @@
 			"revisionTime": "2016-12-24T14:14:13Z"
 		},
 		{
-			"checksumSHA1": "IIPkjjlzZEJrvWVlSZ+B/X4ewrk=",
+			"checksumSHA1": "eSDkJEz48a0hlbZkbnHAHjiTBTA=",
 			"path": "github.com/gkats/httplog",
-			"revision": "272c5a65ce0cbc32eaf8f252e5e1eb025316d95c",
-			"revisionTime": "2017-07-03T13:36:34Z"
+			"revision": "e9e6639dbb1b5aa2a0deabcbe2abf39eba4fa8a2",
+			"revisionTime": "2017-07-05T09:00:43Z"
 		},
 		{
 			"checksumSHA1": "g/V4qrXjUGG9B+e3hB+4NAYJ5Gs=",
@@ -57,9 +63,5 @@
 			"revisionTime": "2017-07-01T00:59:03Z"
 		}
 	],
-	"rootPath": "github.com/gkats/scraper",
-	"heroku": {
-		"install": ["./cmd/..."],
-		"goVersion": "go1.8"
-	}
+	"rootPath": "github.com/gkats/scraper"
 }
