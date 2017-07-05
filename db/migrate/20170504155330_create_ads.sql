@@ -1,8 +1,8 @@
 CREATE TABLE ads (
   id SERIAL PRIMARY KEY,
-  headline1 VARCHAR(50) NOT NULL,
-  headline2 VARCHAR(50) NOT NULL,
-  description VARCHAR(100) NOT NULL,
+  headline1 VARCHAR NOT NULL,
+  headline2 VARCHAR NOT NULL,
+  description VARCHAR NOT NULL,
   path VARCHAR NOT NULL,
   rest TEXT,
   raw TEXT,
