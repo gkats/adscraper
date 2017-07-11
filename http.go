@@ -28,7 +28,7 @@ func NewClient(host string) *Client {
 }
 
 func (c *Client) PostAdKeywords(ad *Ad, k *keywords.Keyword) error {
-	body, err := json.Marshal(newAdWithKeywordJson(ad, k))
+	body, err := json.Marshal(newAdWithKeywordJSON(ad, k))
 	if err != nil {
 		return err
 	}
@@ -90,7 +90,7 @@ func (c *Client) PatchKeyword(id int64) error {
 	return nil
 }
 
-type adJson struct {
+type adJSON struct {
 	H1       string `json:"h1"`
 	H2       string `json:"h2"`
 	Desc     string `json:"desc"`
@@ -100,27 +100,27 @@ type adJson struct {
 	Position int    `json:"position"`
 }
 
-type keywordJson struct {
-	Id            int64  `json:"id"`
+type keywordJSON struct {
+	ID            int64  `json:"id"`
 	Value         string `json:"value"`
 	TimesScraped  int    `json:"timesScraped"`
 	LastScrapedAt string `json:"lastScrapedAt"`
 }
 
-type adWithKeywordJson struct {
-	Ad      adJson      `json:"ad"`
-	Keyword keywordJson `json:"keyword"`
+type adWithKeywordJSON struct {
+	Ad      adJSON      `json:"ad"`
+	Keyword keywordJSON `json:"keyword"`
 }
 
-func newAdWithKeywordJson(ad *Ad, keyword *keywords.Keyword) *adWithKeywordJson {
-	return &adWithKeywordJson{
-		Ad:      newAdJson(ad),
-		Keyword: newKeywordJson(keyword),
+func newAdWithKeywordJSON(ad *Ad, keyword *keywords.Keyword) *adWithKeywordJSON {
+	return &adWithKeywordJSON{
+		Ad:      newAdJSON(ad),
+		Keyword: newKeywordJSON(keyword),
 	}
 }
 
-func newAdJson(ad *Ad) adJson {
-	return adJson{
+func newAdJSON(ad *Ad) adJSON {
+	return adJSON{
 		H1:       ad.H1,
 		H2:       ad.H2,
 		Desc:     ad.Desc,
@@ -131,16 +131,16 @@ func newAdJson(ad *Ad) adJson {
 	}
 }
 
-func newKeywordJson(k *keywords.Keyword) keywordJson {
-	return keywordJson{
-		Id:            k.ID,
+func newKeywordJSON(k *keywords.Keyword) keywordJSON {
+	return keywordJSON{
+		ID:            k.ID,
 		Value:         k.Value,
 		TimesScraped:  k.TimesScraped,
 		LastScrapedAt: k.LastScrapedAt,
 	}
 }
 
-func (a *adJson) ToAd() *Ad {
+func (a *adJSON) ToAd() *Ad {
 	ad := &Ad{
 		H1: a.H1, H2: a.H2, Desc: a.Desc, Path: a.Path, Position: a.Position,
 	}
@@ -149,9 +149,9 @@ func (a *adJson) ToAd() *Ad {
 	return ad
 }
 
-func (k *keywordJson) ToKeyword() *keywords.Keyword {
+func (k *keywordJSON) ToKeyword() *keywords.Keyword {
 	return &keywords.Keyword{
-		ID:            k.Id,
+		ID:            k.ID,
 		Value:         k.Value,
 		TimesScraped:  k.TimesScraped,
 		LastScrapedAt: k.LastScrapedAt,
@@ -184,7 +184,7 @@ type createHandler struct {
 }
 
 func (h *createHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	params := &adWithKeywordJson{}
+	params := &adWithKeywordJSON{}
 	if err := json.NewDecoder(r.Body).Decode(params); err != nil {
 		writeResponse(w, badRequest())
 		return
@@ -212,11 +212,11 @@ func (h *indexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	kwsJson := make([]keywordJson, 0)
+	kwsJSON := make([]keywordJSON, 0)
 	for _, k := range kws {
-		kwsJson = append(kwsJson, newKeywordJson(&k))
+		kwsJSON = append(kwsJSON, newKeywordJSON(&k))
 	}
-	writeResponse(w, ok(kwsJson))
+	writeResponse(w, ok(kwsJSON))
 }
 
 func index(s Store) http.Handler {
