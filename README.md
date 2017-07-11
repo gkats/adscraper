@@ -106,7 +106,7 @@ Run `$ $(GOPATH)/bin/server --help` for more information.
 __scraper__
 The application that scrapes raw ads from google results. It performs a request to get least scraped keywords (random), queries google for results and then posts them back to the server. Run it with
 ```
-$ $(GOPATH)/bin/scraper -h https://server.hostname -d user:password\@host:port/database
+$ $(GOPATH)/bin/scraper -h https://server.hostname
 ```
 Run `$ $(GOPATH)/bin/scraper --help` for more information.
 
