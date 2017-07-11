@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/gkats/scraper"
 	"os"
+
+	"github.com/gkats/scraper"
 )
 
 func main() {
@@ -32,7 +33,7 @@ func main() {
 			handleError(client.PostAdKeywords(ad, k))
 		}
 		// PATCH to increment keyword scraped attributes
-		handleError(client.PatchKeyword(k.Id))
+		handleError(client.PatchKeyword(k.ID))
 	}
 }
 

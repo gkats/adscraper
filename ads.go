@@ -2,11 +2,12 @@ package scraper
 
 import (
 	"database/sql"
+
 	"github.com/gkats/scraper/keywords"
 )
 
 type Ad struct {
-	Id        int64
+	ID        int64
 	H1        string
 	H2        string
 	Path      string
@@ -41,7 +42,7 @@ func (ad *Ad) SetRest(s string) {
 }
 
 type AdKeyword struct {
-	Id            int64
+	ID            int64
 	AdId          int64
 	KeywordId     int64
 	Position      int
@@ -55,7 +56,7 @@ type AdWriter interface {
 }
 
 func newAdKeyword(a *Ad, k *keywords.Keyword) *AdKeyword {
-	return &AdKeyword{AdId: a.Id, KeywordId: k.Id, Position: a.Position}
+	return &AdKeyword{AdId: a.ID, KeywordId: k.ID, Position: a.Position}
 }
 
 func NewWriter(s Store) AdWriter {
@@ -81,7 +82,7 @@ func (s *adsStore) save(ad *Ad, k *keywords.Keyword) error {
 	if err != nil {
 		return err
 	}
-	if ad.Id == 0 {
+	if ad.ID == 0 {
 		err = tx.QueryRow(
 			`
 	    INSERT INTO ads (headline1, headline2, path, description, rest, raw)
@@ -89,7 +90,7 @@ func (s *adsStore) save(ad *Ad, k *keywords.Keyword) error {
 	    RETURNING id
 	    `,
 			ad.H1, ad.H2, ad.Path, ad.Desc, ad.GetRest(), ad.GetRaw(),
-		).Scan(&ad.Id)
+		).Scan(&ad.ID)
 		if err != nil {
 			tx.Rollback()
 			return err
@@ -106,7 +107,7 @@ func (s *adsStore) save(ad *Ad, k *keywords.Keyword) error {
     RETURNING id
     `,
 		ak.AdId, ak.KeywordId, ak.Position,
-	).Scan(&ak.Id)
+	).Scan(&ak.ID)
 	if err != nil {
 		tx.Rollback()
 		return err
@@ -127,7 +128,7 @@ func (s *adsStore) findAdByH1H2Desc(h1 string, h2 string, desc string) (*Ad, err
     `,
 		h1, h2, desc,
 	).Scan(
-		&ad.Id, &ad.H1, &ad.H2, &ad.Desc, &ad.Path, &ad.Rest, &ad.Raw,
+		&ad.ID, &ad.H1, &ad.H2, &ad.Desc, &ad.Path, &ad.Rest, &ad.Raw,
 		&ad.CreatedAt, &ad.UpdatedAt,
 	)
 	if err == sql.ErrNoRows {

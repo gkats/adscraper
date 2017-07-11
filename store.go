@@ -2,6 +2,7 @@ package scraper
 
 import (
 	"database/sql"
+	// load the postgresql database/sql driver
 	_ "github.com/lib/pq"
 )
 

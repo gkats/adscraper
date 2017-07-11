@@ -2,6 +2,7 @@ package keywords
 
 import (
 	"database/sql"
+
 	_ "github.com/lib/pq"
 )
 
@@ -32,7 +33,7 @@ func NewReaderWriter(s Store) ReaderWriter {
 }
 
 type Keyword struct {
-	Id            int64
+	ID            int64
 	Value         string
 	TimesScraped  int
 	CreatedAt     string
@@ -79,7 +80,7 @@ func (r *repository) Upsert(k *Keyword) (*Keyword, error) {
     RETURNING id, created_at, updated_at, times_scraped
     `,
 		k.Value, k.Value,
-	).Scan(&k.Id, &k.CreatedAt, &k.UpdatedAt, &k.TimesScraped)
+	).Scan(&k.ID, &k.CreatedAt, &k.UpdatedAt, &k.TimesScraped)
 
 	return k, err
 }
@@ -104,7 +105,7 @@ func (r *repository) GetLeastScraped(limit int) ([]Keyword, error) {
 	k := Keyword{}
 	for rows.Next() {
 		rows.Scan(
-			&k.Id, &k.Value, &k.TimesScraped, &k.LastScrapedAt, &k.CreatedAt, &k.UpdatedAt,
+			&k.ID, &k.Value, &k.TimesScraped, &k.LastScrapedAt, &k.CreatedAt, &k.UpdatedAt,
 		)
 		ks = append(ks, k)
 	}
@@ -119,7 +120,7 @@ func (r *repository) UpdateScraped(k *Keyword) (*Keyword, error) {
     WHERE id = $1
     RETURNING times_scraped
     `,
-		k.Id,
+		k.ID,
 	).Scan(&k.TimesScraped)
 
 	return k, err

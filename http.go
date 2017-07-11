@@ -4,14 +4,15 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/gkats/httplog"
-	"github.com/gkats/scraper/keywords"
-	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/gkats/httplog"
+	"github.com/gkats/scraper/keywords"
+	"github.com/gorilla/mux"
 )
 
 type Client struct {
@@ -132,7 +133,7 @@ func newAdJson(ad *Ad) adJson {
 
 func newKeywordJson(k *keywords.Keyword) keywordJson {
 	return keywordJson{
-		Id:            k.Id,
+		Id:            k.ID,
 		Value:         k.Value,
 		TimesScraped:  k.TimesScraped,
 		LastScrapedAt: k.LastScrapedAt,
@@ -150,7 +151,7 @@ func (a *adJson) ToAd() *Ad {
 
 func (k *keywordJson) ToKeyword() *keywords.Keyword {
 	return &keywords.Keyword{
-		Id:            k.Id,
+		ID:            k.Id,
 		Value:         k.Value,
 		TimesScraped:  k.TimesScraped,
 		LastScrapedAt: k.LastScrapedAt,
@@ -233,7 +234,7 @@ func (h *updateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if k, err := h.keywordsWriter.UpdateScraped(&keywords.Keyword{Id: int64(id)}); err != nil {
+	if k, err := h.keywordsWriter.UpdateScraped(&keywords.Keyword{ID: int64(id)}); err != nil {
 		writeResponse(w, internalServerError())
 		return
 	} else {
