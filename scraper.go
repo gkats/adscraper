@@ -1,15 +1,14 @@
 package scraper
 
 import (
-	"github.com/PuerkitoBio/goquery"
 	"net/http"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
-const GOOGLE_URL = "https://www.google.com/search"
-
 func NewURL(s string) string {
-	return GOOGLE_URL + "?q=" + strings.Replace(s, " ", "+", -1)
+	return "https://www.google.com/search?q=" + strings.Replace(s, " ", "+", -1)
 }
 
 func Scrape(url string) ([]*Ad, error) {
@@ -40,23 +39,27 @@ func extract(r *http.Response) ([]*Ad, error) {
 func extractAd(pos int, sel *goquery.Selection) *Ad {
 	ad := &Ad{}
 
+	ad.Position = pos
 	ad.H1, ad.H2 = splitHead(sel.Find("h3 > a").Text())
 	ad.Path = strings.TrimSpace(sel.Find(".ads-visurl cite").Text())
-	ad.Desc = strings.TrimSpace(sel.Find(".ads-creative").Text())
-	ad.SetRest(innerHTML(sel.Find(".ads-creative")))
-	ad.SetRaw(innerHTML(sel))
-	ad.Position = pos
+
+	descSel := sel.Find(".ads-creative")
+	ad.Desc = strings.TrimSpace(descSel.Text())
+	ad.SetRest(innerHTML(descSel))
+
+	raw, _ := goquery.OuterHtml(sel)
+	ad.SetRaw(raw)
 
 	return ad
 }
 
-func splitHead(head string) (string, string) {
-	h := strings.SplitN(head, "-", 2)
-	if len(h) > 1 {
-		return normalize(strings.TrimSpace(h[0])), normalize(strings.TrimSpace(h[1]))
-	} else {
-		return "", ""
+func splitHead(head string) (h1 string, h2 string) {
+	h1, h2 = "", ""
+	if h := strings.SplitN(head, "-", 2); len(h) > 1 {
+		h1 = normalize(strings.TrimSpace(h[0]))
+		h2 = normalize(strings.TrimSpace(h[1]))
 	}
+	return
 }
 
 func normalize(s string) string {
