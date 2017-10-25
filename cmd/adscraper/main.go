@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gkats/scraper"
+	"github.com/gkats/adscraper"
 )
 
 func main() {
@@ -19,13 +19,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	client := scraper.NewClient(hostUrl)
+	client := adscraper.NewClient(hostUrl)
 	ks, err := client.GetKeywords()
 	handleError(err)
 
 	// Scrape ads for each keyword
 	for _, k := range ks {
-		ads, err := scraper.Scrape(scraper.NewURL(k.Value))
+		ads, err := adscraper.Scrape(adscraper.NewURL(k.Value))
 		handleError(err)
 
 		// POST each ad to the ads service

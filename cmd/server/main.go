@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/gkats/scraper"
+	"github.com/gkats/adscraper"
 )
 
 func main() {
@@ -12,11 +12,11 @@ func main() {
 	flag.StringVar(&dbUrl, "d", "", "The database URL. Should be in 'user:password@host:port/database' format.")
 	flag.Parse()
 
-	store, err := scraper.NewStore(dbUrl)
+	store, err := adscraper.NewStore(dbUrl)
 	handleError(err)
 	defer store.Close()
 
-	scraper.NewServer(store).Listen(3000)
+	adscraper.NewServer(store).Listen(3000)
 }
 
 func handleError(err error) {

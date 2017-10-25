@@ -1,5 +1,5 @@
-PACKAGE=github.com/gkats/scraper
-BINARIES=scraper server
+PACKAGE=github.com/gkats/adscraper
+BINARIES=adscraper server
 
 BUILD = `git rev-parse HEAD`
 BUILD_DIR = ${GOPATH}/src/${PACKAGE}

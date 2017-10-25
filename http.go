@@ -1,4 +1,4 @@
-package scraper
+package adscraper
 
 import (
 	"bytes"
@@ -10,8 +10,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/gkats/adscraper/keywords"
 	"github.com/gkats/httplog"
-	"github.com/gkats/scraper/keywords"
 	"github.com/gorilla/mux"
 )
 

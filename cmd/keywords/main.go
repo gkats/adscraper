@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"github.com/gkats/scraper/keywords"
+	"github.com/gkats/adscraper/keywords"
 	"os"
 )
 

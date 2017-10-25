@@ -1,16 +1,18 @@
-# scraper
+# adscraper
 
 All you need to scrape raw ads.
 
 ## Setup
 
-#### 1. Install Go 1.8.x
+#### 1. Install Go
 
 Go to [golang.org downloads page](https://golang.org/dl/), download the binary for your architecture and then follow the [installation instructions](https://golang.org/doc/install). It's probably as simple as (running with super user privileges)
 ```
 $ tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
 ```
 It's recommended to use the default installation location and __not__ set the `GOROOT` environment variable.
+
+The package was built with Go version 1.8.x.
 
 #### 2. Add Go's install location to your `PATH`.
 
@@ -28,7 +30,7 @@ Don't forget to install both the server and the client libraries.
 #### 4. Clone the project
 
 ```
-$ git clone git@github.com:gkats/keywords.git
+$ git clone git@github.com:gkats/adscraper.git
 ```
 
 #### 5. Set the `GOPATH` environment variable
@@ -47,7 +49,7 @@ Happy hacking!
 
 The package contains a `Makefile` for building with GNU Make. There are various targets in the Makefile. The default just builds (compiles) the package.
 
-Before you run any Makefile rules, you need to set your `GOPATH`. The `GOPATH` variable's value is tightly related to the way you've set up your project directory hierarchy. It is recommended that you follow the `$(GOPATH)/src/github.com/gkats/scraper` directory structure. All you have to do then is `source .gopath` from the project root. While you can source the file only once, we'll include the directive for every run of make.
+Before you run any Makefile rules, you need to set your `GOPATH`. The `GOPATH` variable's value is tightly related to the way you've set up your project directory hierarchy. It is recommended that you follow the `$(GOPATH)/src/github.com/gkats/adscraper` directory structure. All you have to do then is `source .gopath` from the project root. While you can source the file only once, we'll include the directive for every run of make.
 
 1. To install the package run
 ```
@@ -103,11 +105,11 @@ $ $(GOPATH)/bin/server -d user:password\@host:port/database
 ```
 Run `$ $(GOPATH)/bin/server --help` for more information.
 
-__scraper__
+__adscraper__
 The application that scrapes raw ads from google results. It performs a request to get least scraped keywords (random), queries google for results and then posts them back to the server. Run it with
 ```
-$ $(GOPATH)/bin/scraper -h https://server.hostname
+$ $(GOPATH)/bin/adscraper -h https://server.hostname
 ```
-Run `$ $(GOPATH)/bin/scraper --help` for more information.
+Run `$ $(GOPATH)/bin/adscraper --help` for more information.
 
 

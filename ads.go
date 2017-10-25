@@ -1,9 +1,9 @@
-package scraper
+package adscraper
 
 import (
 	"database/sql"
 
-	"github.com/gkats/scraper/keywords"
+	"github.com/gkats/adscraper/keywords"
 )
 
 type Ad struct {

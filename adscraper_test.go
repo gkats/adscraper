@@ -1,4 +1,4 @@
-package scraper_test
+package adscraper_test
 
 import (
 	"io"
@@ -8,7 +8,7 @@ import (
 
 	"strings"
 
-	"github.com/gkats/scraper"
+	"github.com/gkats/adscraper"
 )
 
 func TestScrape(t *testing.T) {
@@ -17,7 +17,7 @@ func TestScrape(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	ads, err := scraper.Scrape(ts.URL)
+	ads, err := adscraper.Scrape(ts.URL)
 	if err != nil {
 		t.Error(err)
 	}
@@ -83,7 +83,7 @@ func TestNewURL(t *testing.T) {
 	}
 
 	for i, tc := range testCases {
-		if got := scraper.NewURL(tc.k); got != tc.want {
+		if got := adscraper.NewURL(tc.k); got != tc.want {
 			t.Errorf("(%v) Expected %v, got %v", i, tc.want, got)
 		}
 	}
