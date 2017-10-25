@@ -1,6 +1,8 @@
 # adscraper
 
-All you need to scrape raw ads.
+All you need to scrape raw ads. 
+
+Provide a file with keywords, get ads from Google search and store them in a database.
 
 ## Setup
 
