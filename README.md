@@ -115,4 +115,11 @@ $ $(GOPATH)/bin/adscraper -h https://server.hostname
 ```
 Run `$ $(GOPATH)/bin/adscraper --help` for more information.
 
+## License
+
+The license is MIT. Feel free to fork this and use it. 
+
+Due to the frequent changes in the Google search results page, some or all code in this package might not work.
+
+Finally, please consult with Google search's terms of use before using this library.
 
