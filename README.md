@@ -81,7 +81,10 @@ $ GOPATH=/path/to/gopath make vet
 
 ## Test
 
-Nothing here at this point.
+Not much here at this point. Run with
+```
+$ . .gopath && go test
+```
 
 ## Run
 
