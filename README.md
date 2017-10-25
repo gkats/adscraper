@@ -1,4 +1,4 @@
-# adscripted scraper
+# scraper
 
 All you need to scrape raw ads.
 
